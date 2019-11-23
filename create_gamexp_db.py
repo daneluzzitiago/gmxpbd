@@ -95,13 +95,44 @@ def create_tables():
         """,
         """
         CREATE TABLE Inscricao(
-            ID INTEGER,
-            Nome_campeonato VARCHAR (20),
-            Jogo VARCHAR (20),
-            Tag VARCHAR (20),
+            Id INTEGER,
+            Nome_campeonato VARCHAR(20),
+            Jogo VARCHAR(20),
+            TAG VARCHAR(20),
             PRIMARY KEY (ID),
             FOREIGN KEY (Nome_campeonato, Jogo) REFERENCES Campeonato(Nome, Nome_jogo) ON UPDATE CASCADE ON DELETE CASCADE,
-            UNIQUE (Nome)
+            FOREIGN KEY (TAG) REFERENCES Time(TAG) ON UPDATE CASCADE ON DELETE CASCADE,
+            UNIQUE (Nome_campeonato, Jogo, TAG)
+        )
+        """,
+        """
+        CREATE TABLE Partida(
+            Id INTEGER,
+            Hr_ini TIMESTAMP,
+            Hr_fim TIMESTAMP,
+            Nome_arena VARCHAR(20),
+            Id1 INTEGER,
+            Id2 INTEGER,
+            Narrador VARCHAR(11),
+            Comentarista VARCHAR(11),
+            Adm VARCHAR(11) NOT NULL,
+            Vencedor INTEGER,
+            Pont_time1 INTEGER,
+            Pont_time2 INTEGER,
+            Rounds INTEGER,
+            Inscricao1 INTEGER,
+            Inscricao2 INTEGER,
+            PRIMARY KEY (Id),
+            FOREIGN KEY (Nome_arena) REFERENCES Arena(Nome),
+            UNIQUE(Hr_ini, Hr_fim, Nome_arena),
+            FOREIGN KEY (Id1) REFERENCES Partida(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (Id2) REFERENCES Partida(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (Narrador) REFERENCES Jogador(CPF) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (Comentarista) REFERENCES Jogador(CPF) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (Adm) REFERENCES Pessoa(CPF) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (Vencedor) REFERENCES Inscricao(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (Inscricao1) REFERENCES Inscricao(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (Inscricao2) REFERENCES Inscricao(Id) ON UPDATE CASCADE ON DELETE CASCADE
         )
         """
     )
