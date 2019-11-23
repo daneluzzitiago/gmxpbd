@@ -1,0 +1,13 @@
+Install:
+
+sudo apt-get install libpq-dev
+sudo apt install postgresql-client
+sudo apt-get install postgresql
+pip3 install psycopg2
+
+Rodar:
+sudo -u postgres -i
+	CREATE DATABASE gamexp;
+	ALTER USER postgres postgres;
+python3 create_gamexp_db.py
+sudo -u postgres gamexp
