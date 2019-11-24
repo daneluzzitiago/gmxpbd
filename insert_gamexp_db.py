@@ -75,9 +75,16 @@ def insert_tables():
     campeonato = "INSERT INTO Campeonato VALUES(%s, %s, %s, %s, %s)"
     campeonato_info = [
         ('CS CAASO', 'CS', '5vs5', '1000', '11111111111111',),
-        ('LOL Federal', 'LOL', '5vs5', '10', '22222222222222',)
+        ('LOL Federal', 'LOL', '5vs5', '10', '22222222222222',),
     ]
     tables_info[campeonato] = campeonato_info
+
+    campeonato2 = "INSERT INTO Campeonato VALUES(%s, %s, %s, %s, NULL)"
+    campeonato_info2 = [
+        ('Liga de CS', 'CS', '1x1', '5000'),
+        ('CS Federupa', 'CS', '5x5', '505')
+    ]
+    tables_info[campeonato2] = campeonato_info2
 
     inscricao = "INSERT INTO Inscricao VALUES(%s, %s, %s, %s)"
     inscricao_info = [
@@ -88,10 +95,12 @@ def insert_tables():
     ]
     tables_info[inscricao] = inscricao_info
 
-    partida = "INSERT INTO Partida VALUES (%s, to_date(%s, %s), to_date(%s, %s), %s, NULL, NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    partida = "INSERT INTO Partida VALUES (%s, TO_TIMESTAMP(%s, %s), TO_TIMESTAMP(%s, %s), %s, NULL, NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     partida_info = [
-        ('1', '10:00:00', 'HH24:MI:SS', '12:00:00', 'HH24:MI:SS', 'Arena CAASO', '44444444444', '55555555555', '22222222222', '10', '5', '6', '11', '10', '30',),
-        ('2', '10:00:00', 'HH24:MI:SS', '12:00:00', 'HH24:MI:SS', 'Arena Federal', '44444444444', '55555555555', '66666666666', '20', '5', '0', '5', '20', '40',)
+        ('1', '2019-11-23 10:00:00', 'YYYY-MM-DD HH24:MI:SS', '2019-11-23 12:00:00', 'YYYY-MM-DD HH24:MI:SS', 'Arena CAASO', '44444444444', '55555555555', '22222222222', '10', '5', '6', '11', '10', '30',),
+        ('2', '2019-11-23 10:00:00', 'YYYY-MM-DD HH24:MI:SS', '2019-11-23 12:00:00', 'YYYY-MM-DD HH24:MI:SS', 'Arena Federal', '44444444444', '55555555555', '66666666666', '20', '5', '0', '5', '20', '40',),
+        ('3', '2019-11-24 14:00:00', 'YYYY-MM-DD HH24:MI:SS', '2019-11-24 18:00:00', 'YYYY-MM-DD HH24:MI:SS', 'Arena CAASO', '44444444444', '55555555555', '22222222222', '20', '15', '8', '4', '20', '40'),
+        ('4', '2019-11-24 04:00:00', 'YYYY-MM-DD HH24:MI:SS', '2019-11-24 06:00:00', 'YYYY-MM-DD HH24:MI:SS', 'Arena CAASO', '44444444444', '55555555555', '66666666666', '30', '9', '12', '6', '10', '30')
     ]
     tables_info[partida] = partida_info
 
