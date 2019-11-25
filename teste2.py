@@ -106,6 +106,9 @@ class LoginWindow(Frame):
         # # self.logbtn = Button(self, text="Criar nova conta", command=self._create_account())
         # self.logbtn.grid(columnspan=2)
 
+        # # self.logbtn = Button(self, text="Criar nova conta", command=self._create_account())
+        # self.logbtn.grid(columnspan=2)
+
         self.pack()
 
     def _create_window(self):
