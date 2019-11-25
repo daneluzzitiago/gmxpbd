@@ -89,7 +89,7 @@ def create_tables():
             Premiacao INTEGER,
             Empresa VARCHAR (14),
             PRIMARY KEY (Nome, Nome_jogo),
-            FOREIGN KEY (Nome_jogo) REFERENCES Jogo(nome) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (Nome_jogo) REFERENCES Jogo(Nome) ON UPDATE CASCADE ON DELETE CASCADE,
             FOREIGN KEY (Empresa) REFERENCES Empresa(CNPJ) ON UPDATE CASCADE ON DELETE CASCADE
         )
         """,
