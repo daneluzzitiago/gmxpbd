@@ -1,6 +1,32 @@
 from tkinter import *
 import tkinter.messagebox as tm
 
+import psycopg2
+from config import config
+
+def execute_query(query):
+    """ query data from the vendors table """
+    connection = None
+    try:
+        params = config()
+        connection = psycopg2.connect(**params)
+        cursor = connection.cursor()
+
+        cursor.execute(query)
+        row = cursor.fetchone()
+
+        if row is not None:
+            return row
+        
+        else:
+            return None
+
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if connection is not None:
+            connection.close()
 
 class LoginWindow(Frame):
     def __init__(self, master):
@@ -20,16 +46,24 @@ class LoginWindow(Frame):
         self.logbtn = Button(self, text="Login", command=self._login_btn_clicked)
         self.logbtn.grid(columnspan=2)
 
+        # # self.logbtn = Button(self, text="Criar nova conta", command=self._create_account())
+        # self.logbtn.grid(columnspan=2)
+
         self.pack()
 
     def _login_btn_clicked(self):
         username = self.entry_username.get()
         password = self.entry_password.get()
 
-        if username == "john" and password == "password":
-            tm.showinfo("Info", "Welcome John")
+        query = "select Nome, Email, Senha from pessoa where Email = '{}' AND Senha = '{}'".format(username, password)
+        row = execute_query(query)
+        name = row[0]
+
+        if row is not None:
+            tm.showinfo("Info", "Welcome {}".format(name))
         else:
             tm.showerror("Erro", "Usuario não encontrado")
+
 
 
 loop = Tk()
