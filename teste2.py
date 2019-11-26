@@ -1,5 +1,7 @@
 from tkinter import *
 import tkinter.messagebox as tm
+import psycopg2
+from config import config
 
 class CreateWindow(Frame):
     def __init__(self, master):
@@ -24,13 +26,62 @@ class CreateWindow(Frame):
         self.entry_cpf.grid(row=2, column=1)
         self.entry_email.grid(row=3, column=1)
 
-        self.logbtn = Button(self, text="Criar", command=self._new_person())
-        self.logbtn.grid(columnspan=1)
+        botao = Button(self, text="Criar Login", command=lambda : self._new_person())
+        botao.grid(columnspan=1)
 
         self.pack()
 
     def _new_person(self):
-        pass
+        self.insert_table()
+
+    def insert_table(self):
+        """ Connect to the PostgreSQL database server """
+        connection = None
+        try:
+            params = config()
+            connection = psycopg2.connect(**params)
+            # create a new cursor
+            cursor = connection.cursor()
+            # execute the INSERT statement
+            table = "INSERT INTO Pessoa VALUES(%s, %s, %s, %s)"
+            table_info = (str(self.entry_cpf.get()), str(self.entry_email.get()),  str(self.entry_nome.get()), str(self.entry_senha.get()),)
+            print(table_info)
+
+            cursor.execute(table, table_info)
+            # commit the changes to the database
+            connection.commit()
+            # close communication with the database
+            cursor.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if connection is not None:
+                connection.close()
+
+
+def execute_query(query):
+    """ query data from the vendors table """
+    connection = None
+    try:
+        params = config()
+        connection = psycopg2.connect(**params)
+        cursor = connection.cursor()
+
+        cursor.execute(query)
+        row = cursor.fetchone()
+
+        if row is not None:
+            return row
+        
+        else:
+            return None
+
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if connection is not None:
+            connection.close()
 
 class LoginWindow(Frame):
     def __init__(self, master):
@@ -52,6 +103,9 @@ class LoginWindow(Frame):
         self.logbtn = Button(self, text="Criar", command=self._create_window)
         self.logbtn.grid(columnspan=1)
 
+        # # self.logbtn = Button(self, text="Criar nova conta", command=self._create_account())
+        # self.logbtn.grid(columnspan=2)
+
         self.pack()
 
     def _create_window(self):
@@ -63,10 +117,15 @@ class LoginWindow(Frame):
         username = self.entry_username.get()
         password = self.entry_password.get()
 
-        if username == "john" and password == "password":
-            tm.showinfo("Info", "Welcome John")
+        query = "select Nome, Email, Senha from pessoa where Email = '{}' AND Senha = '{}'".format(username, password)
+        row = execute_query(query)
+        name = row[0]
+
+        if row is not None:
+            tm.showinfo("Info", "Welcome {}".format(name))
         else:
             tm.showerror("Erro", "Usuario não encontrado")
+
 
 
 loop = Tk()
