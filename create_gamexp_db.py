@@ -44,7 +44,7 @@ def create_tables():
             Reserva INTEGER DEFAULT (0),
             FOREIGN KEY (Competidor) REFERENCES Jogador(CPF) ON UPDATE CASCADE ON DELETE CASCADE,
             FOREIGN KEY (TAG) REFERENCES Time(TAG) ON UPDATE CASCADE ON DELETE CASCADE,
-            PRIMARY KEY (competidor, TAG)
+            PRIMARY KEY (Competidor, TAG)
         )
         """,
         """
