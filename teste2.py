@@ -89,7 +89,6 @@ def execute_query(query):
         if connection is not None:
             connection.close()
 
-
 class LoginWindow(Frame):
     def __init__(self, master):
         super().__init__(master) #Call the real init
@@ -110,6 +109,9 @@ class LoginWindow(Frame):
         self.logbtn = Button(self, text="Criar", command=self._create_window)
         self.logbtn.grid(columnspan=1)
 
+        # # self.logbtn = Button(self, text="Criar nova conta", command=self._create_account())
+        # self.logbtn.grid(columnspan=2)
+
         self.pack()
 
     def _create_window(self):
@@ -129,6 +131,7 @@ class LoginWindow(Frame):
             tm.showinfo("Info", "Welcome {}".format(name))
         else:
             tm.showerror("Erro", "Usuario não encontrado")
+
 
 
 loop = Tk()
