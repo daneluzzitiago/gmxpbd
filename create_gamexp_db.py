@@ -23,8 +23,8 @@ def create_tables():
             Subtipo VARCHAR (20),
             Narrador_ou_comentarista VARCHAR (20),
             Nick VARCHAR (20),
-            PRIMARY KEY (CPF),
             FOREIGN KEY (CPF) REFERENCES Pessoa(CPF) ON UPDATE CASCADE ON DELETE CASCADE,
+            PRIMARY KEY (CPF),
             UNIQUE (Nick)
         )
         """,

@@ -165,6 +165,8 @@ def connect(tables_info):
         connection = psycopg2.connect(**params)
         # create a new cursor
         cursor = connection.cursor()
+
+        print(tables_info)
         # execute the INSERT statement
         for table in tables_info:
             cursor.executemany(table, tables_info[table])

@@ -32,11 +32,14 @@ class CreateWindow(Frame):
         self.pack()
 
     def _new_person(self):
-        if self.insert_table():
+        row = execute_query("select * from Pessoa where CPF='{}' OR Email='{}'".format(self.entry_cpf.get(), self.entry_email.get()))
+        if row:
+            tm.showerror("Erro", "CPF ou E-mail já existem")
+        elif self.insert_table():
             tm.showinfo("Info", "Usuário criado.")
         else:
             tm.showerror("Erro", "Falha na criação de usuário.")
-        
+
 
     def insert_table(self):
         """ Connect to the PostgreSQL database server """
@@ -125,9 +128,9 @@ class LoginWindow(Frame):
 
         query = "select Nome, Email, Senha from pessoa where Email = '{}' AND Senha = '{}'".format(username, password)
         row = execute_query(query)
-        name = row[0]
 
         if row is not None:
+            name = row[0]
             tm.showinfo("Info", "Welcome {}".format(name))
         else:
             tm.showerror("Erro", "Usuario não encontrado")
