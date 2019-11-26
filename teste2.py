@@ -1,5 +1,7 @@
 from tkinter import *
 import tkinter.messagebox as tm
+import psycopg2
+from config import config
 
 class CreateWindow(Frame):
     def __init__(self, master):
@@ -56,8 +58,6 @@ class CreateWindow(Frame):
             if connection is not None:
                 connection.close()
 
-import psycopg2
-from config import config
 
 def execute_query(query):
     """ query data from the vendors table """
