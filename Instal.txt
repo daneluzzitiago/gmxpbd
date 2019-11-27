@@ -13,3 +13,6 @@ psql postgres
 Sair do terminal do postgres e rodar:
 python3 create_gamexp_db.py
 python3 insert_gamexp_db.py
+
+Executar a interface:
+python3 app.py
