@@ -1,7 +1,3 @@
-To start interface first run:
+Para executar a interface utilize Linux com Python3 e Postgres.
 
-sudo apt-get install python3-tk
-
-Then:
-
-python3 teste.py
+Siga as instruções do Instal.txt
