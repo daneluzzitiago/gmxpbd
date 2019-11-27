@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 import tkinter.messagebox as tm
 import psycopg2
-from database.config import config
+from config import config
 
 GEO = "300x300+120+120"
 
@@ -39,6 +39,7 @@ class LoginWindow(Frame):
         print(person)
         iw = tk.Toplevel()
         iw.geometry(GEO)
+        iw.title = 'person[0]'
 
         query = "select J.Nick, T.Nome, Po.Posicao from Jogador J join Posicao Po on J.CPF = '{}' join Participa P on J.CPF = '{}' join Time T on P.Tag = T.Tag".format(person[3], person[3])
 
@@ -50,9 +51,9 @@ class LoginWindow(Frame):
             self.label_team = Label(iw, text="Time partipante: '{}'".format(row[1]))
             self.label_positions = Label(iw, text="Posições em que atua: '{}'".format(row[2]))
 
-            self.label_nickname.grid(row=1, sticky=E)
-            self.label_team.grid(row=2, sticky=E)
-            self.label_positions.grid(row=3, sticky=E)
+            self.label_nickname.grid(row=1, sticky=W)
+            self.label_team.grid(row=2, sticky=W)
+            self.label_positions.grid(row=3, sticky=W)
             # self.label_championships = Label(self, text="Campeonatos que participa: {}".format())
 
         
